@@ -1,0 +1,40 @@
+#define BLYNK_TEMPLATE_ID ""
+#define BLYNK_TEMPLATE_NAME ""
+#define BLYNK_AUTH_TOKEN ""
+
+#define BLYNK_PRINT Serial
+
+#include <Blynk.h>
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+char auth[] = BLYNK_AUTH_TOKEN;
+char ssid[] = "";
+char pass[] = "";
+
+BLYNK_WRITE(V0)
+{
+  int value = param.asInt();
+  Serial.println(value);
+  if(value == 0)
+  {
+    digitalWrite(D3, HIGH);  
+  }
+  if(value == 1)
+  {
+    digitalWrite(D3, LOW);
+  }
+}
+
+void setup()
+{
+  pinMode(D3,OUTPUT);
+  Serial.begin(115200);
+  //digitalWrite(0,HIGH);
+  Blynk.begin(auth, ssid, pass);
+}
+
+void loop()
+{
+  Blynk.run();
+}
